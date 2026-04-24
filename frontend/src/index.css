@@ -1,0 +1,3 @@
+﻿/* minimal baseline styles (Tailwind added in next commit) */
+:root { color-scheme: light; }
+body { margin: 0; }
