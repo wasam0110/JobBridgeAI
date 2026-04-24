@@ -1,3 +1,8 @@
-﻿/* minimal baseline styles (Tailwind added in next commit) */
-:root { color-scheme: light; }
-body { margin: 0; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #F9FAFB;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
