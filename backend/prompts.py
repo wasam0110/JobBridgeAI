@@ -17,6 +17,10 @@ MISSING SKILLS:
 IMPROVED SUGGESTIONS:
 [3-5 bullet points of specific, actionable improvements they can make to their CV right now]
 
+At the end of your analysis, output this exact line:
+MATCH_SCORE: [number between 40-95]%
+Base this on how strong the CV is overall.
+
 CV TEXT:
 {cv_text}"""
 

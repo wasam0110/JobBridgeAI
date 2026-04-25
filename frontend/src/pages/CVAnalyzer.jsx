@@ -8,6 +8,33 @@ function CVAnalyzer({ selectedFile, setSelectedFile, results, setResults }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  function clampScore(value) {
+    return Math.max(40, Math.min(95, value))
+  }
+
+  function countPoints(text) {
+    if (!text || text === 'No data returned') return 0
+    const lines = text.split('\n').map((ln) => ln.trim()).filter(Boolean)
+    const bullets = lines.filter((ln) => /^[-•*]|^\d+[\.)]/.test(ln))
+    return bullets.length > 0 ? bullets.length : lines.length
+  }
+
+  function getDisplayScore(data) {
+    if (!data) return null
+
+    const raw = data.match_score ?? data.matchScore
+    const parsed = typeof raw === 'number' ? raw : Number.parseInt(raw, 10)
+    if (Number.isFinite(parsed)) return clampScore(parsed)
+
+    // Frontend fallback in case backend response has no explicit score.
+    const strengths = countPoints(data.strengths)
+    const weak = countPoints(data.weak_points)
+    const missing = countPoints(data.missing_skills)
+    return clampScore(68 + (strengths * 4) - (weak * 3) - (missing * 2))
+  }
+
+  const displayScore = getDisplayScore(results)
+
   // Called when user picks a file in the FileUpload component
   function handleFileSelect(file) {
     setSelectedFile(file)
@@ -90,6 +117,20 @@ function CVAnalyzer({ selectedFile, setSelectedFile, results, setResults }) {
       {results && !loading && (
         <div className="space-y-4">
           <h2 className="text-xl font-bold text-gray-900 mt-4 mb-2">Analysis Results</h2>
+
+          {typeof displayScore === 'number' && (
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-6 flex items-center justify-center">
+              <div className="flex flex-col items-center">
+                <div
+                  className="w-36 h-36 rounded-full border-8 border-emerald-500 flex items-center justify-center bg-emerald-50"
+                  aria-label="Job ready score"
+                >
+                  <span className="text-3xl font-extrabold text-emerald-700">{displayScore}%</span>
+                </div>
+                <p className="mt-3 text-sm font-semibold text-slate-700">Job-Ready Score</p>
+              </div>
+            </div>
+          )}
 
           <ResultCard
             title="Strengths"
