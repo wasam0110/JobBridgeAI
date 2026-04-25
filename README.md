@@ -1,4 +1,4 @@
-# 🚀 JobBridge AI — From Graduate to Job-Ready
+#  JobBridge AI — From Graduate to Job-Ready
 
 An AI-powered web app that helps university students and graduates become job-ready.
 Built with FastAPI + React + Groq (Llama 3 70B).
