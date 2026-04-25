@@ -75,43 +75,43 @@ function FileUpload({ onFileSelect, accept = '.pdf' }) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`
-          border-2 border-dashed rounded-xl p-10 text-center cursor-pointer
-          transition-all duration-200
+          border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer
+          transition-all duration-300
           ${dragging
-            ? 'border-blue-500 bg-blue-50'
+            ? 'border-cyan-500 bg-cyan-50 shadow-[0_0_0_5px_rgba(6,182,212,0.14)]'
             : selectedFile
-              ? 'border-green-400 bg-green-50'
-              : 'border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50'
+              ? 'border-emerald-400 bg-emerald-50'
+              : 'border-slate-300 bg-white/90 hover:border-cyan-400 hover:bg-cyan-50/70'
           }
         `}
       >
         {selectedFile ? (
           // File selected — show filename
           <div className="flex flex-col items-center gap-2">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <p className="text-green-700 font-medium">{selectedFile.name}</p>
-            <p className="text-green-500 text-sm">
+            <p className="text-emerald-700 font-medium">{selectedFile.name}</p>
+            <p className="text-emerald-600 text-sm">
               {(selectedFile.size / 1024).toFixed(1)} KB — Click to change file
             </p>
           </div>
         ) : (
           // No file selected — show instructions
           <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
             <div>
-              <p className="text-gray-700 font-medium">
+              <p className="text-slate-700 font-semibold">
                 {dragging ? 'Drop your file here' : 'Drag & drop or click to upload'}
               </p>
-              <p className="text-gray-400 text-sm mt-1">Supported format: {accept.toUpperCase()}</p>
+              <p className="text-slate-500 text-sm mt-1">Supported format: {accept.toUpperCase()}</p>
             </div>
           </div>
         )}

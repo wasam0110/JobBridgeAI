@@ -37,7 +37,7 @@ function App() {
       <Navbar />
 
       {/* Main content area */}
-      <main className="min-h-screen bg-gray-50 pt-4 pb-12">
+      <main className="min-h-screen app-shell-bg pt-4 pb-12">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

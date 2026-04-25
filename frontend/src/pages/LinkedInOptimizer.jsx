@@ -40,17 +40,17 @@ function LinkedInOptimizer({ summary, setSummary, jobRole, setJobRole, results, 
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">LinkedIn Optimizer</h1>
-        <p className="text-gray-500 text-lg">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">LinkedIn Optimizer</h1>
+        <p className="text-slate-600 text-lg">
           Paste your current LinkedIn About section and let AI rewrite it to be more
           compelling, professional, and keyword-rich.
         </p>
       </div>
 
       {/* Input card */}
-      <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-6 mb-6">
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Your Current LinkedIn Summary <span className="text-red-400">*</span>
           </label>
           <textarea
@@ -58,27 +58,27 @@ function LinkedInOptimizer({ summary, setSummary, jobRole, setJobRole, results, 
             onChange={e => { setSummary(e.target.value); setError('') }}
             rows={7}
             placeholder="I am a recent graduate looking for opportunities in... (paste your current LinkedIn About section here)"
-            className="w-full border border-gray-300 rounded-lg p-3 
+            className="w-full border border-slate-300 rounded-lg p-3 
                        focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           />
           <div className="flex justify-between mt-1">
-            <p className="text-xs text-gray-400">Minimum 50 characters recommended</p>
-            <p className={`text-xs ${charCount < 50 ? 'text-red-400' : 'text-gray-400'}`}>
+            <p className="text-xs text-slate-400">Minimum 50 characters recommended</p>
+            <p className={`text-xs ${charCount < 50 ? 'text-red-400' : 'text-slate-400'}`}>
               {charCount} characters
             </p>
           </div>
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Target Job Role <span className="text-gray-400 font-normal">(optional)</span>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Target Job Role <span className="text-slate-400 font-normal">(optional)</span>
           </label>
           <input
             type="text"
             value={jobRole}
             onChange={e => setJobRole(e.target.value)}
             placeholder="e.g. Frontend Developer, Data Scientist, Marketing Manager"
-            className="w-full border border-gray-300 rounded-lg p-3 
+            className="w-full border border-slate-300 rounded-lg p-3 
                        focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -95,7 +95,7 @@ function LinkedInOptimizer({ summary, setSummary, jobRole, setJobRole, results, 
         <button
           onClick={handleOptimize}
           disabled={loading || !summary.trim()}
-          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed
+          className="w-full bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 disabled:cursor-not-allowed
                      text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
         >
           {loading ? 'Rewriting Your Summary...' : 'Optimize My LinkedIn'}
@@ -107,36 +107,36 @@ function LinkedInOptimizer({ summary, setSummary, jobRole, setJobRole, results, 
 
       {/* Results */}
       {results && !loading && (
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900">Results</h2>
+        <div className="space-y-6 reveal-up">
+          <h2 className="text-xl font-bold text-slate-900">Results</h2>
 
           {/* Side by side comparison — stacks on mobile */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             {/* Original */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-              <div className="bg-gray-100 px-5 py-3">
-                <h3 className="font-semibold text-gray-700 text-sm">📝 Your Original</h3>
+            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200">
+              <div className="bg-slate-100 px-5 py-3">
+                <h3 className="font-semibold text-slate-700 text-sm">Your Original</h3>
               </div>
               <div className="px-5 py-4">
-                <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">{summary}</p>
+                <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">{summary}</p>
               </div>
             </div>
 
             {/* Optimized */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-blue-400">
-              <div className="bg-blue-50 px-5 py-3 flex items-center justify-between">
-                <h3 className="font-semibold text-blue-700 text-sm">AI Optimized Version</h3>
+            <div className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-cyan-400">
+              <div className="bg-cyan-50 px-5 py-3 flex items-center justify-between">
+                <h3 className="font-semibold text-cyan-800 text-sm">AI Optimized Version</h3>
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 
-                             bg-white border border-blue-200 rounded-md px-2 py-1 transition-colors"
+                  className="flex items-center gap-1 text-xs text-cyan-700 hover:text-cyan-900 
+                             bg-white border border-cyan-200 rounded-md px-2 py-1 transition-colors"
                 >
                   {copied ? '✓ Copied!' : 'Copy'}
                 </button>
               </div>
               <div className="px-5 py-4">
-                <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">{results.optimized}</p>
+                <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap">{results.optimized}</p>
               </div>
             </div>
           </div>

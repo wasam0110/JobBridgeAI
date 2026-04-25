@@ -47,16 +47,16 @@ function CVAnalyzer({ selectedFile, setSelectedFile, results, setResults }) {
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">CV Analyzer</h1>
-        <p className="text-gray-500 text-lg">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">CV Analyzer</h1>
+        <p className="text-slate-600 text-lg">
           Upload your CV as a PDF and get detailed AI feedback on what's working, what isn't,
           and exactly how to improve it.
         </p>
       </div>
 
       {/* Upload card */}
-      <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Upload Your CV</h2>
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-6 mb-6">
+        <h2 className="text-lg font-semibold text-slate-800 mb-4">Upload Your CV</h2>
 
         <FileUpload onFileSelect={handleFileSelect} accept=".pdf" />
 
@@ -74,7 +74,7 @@ function CVAnalyzer({ selectedFile, setSelectedFile, results, setResults }) {
         <button
           onClick={handleAnalyze}
           disabled={loading || !selectedFile}
-          className="mt-6 w-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed
+          className="mt-6 w-full bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 disabled:cursor-not-allowed
                      text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-base"
         >
           {loading ? 'Analyzing...' : 'Analyze My CV'}

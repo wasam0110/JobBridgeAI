@@ -33,17 +33,17 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Skills Gap Analysis</h1>
-        <p className="text-gray-500 text-lg">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Skills Gap Analysis</h1>
+        <p className="text-slate-600 text-lg">
           Paste your CV and enter a target role — the AI will map which skills you already
           have versus what you still need to land the job.
         </p>
       </div>
 
       {/* Input card */}
-      <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-md p-6 mb-6">
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Paste Your CV Text <span className="text-red-400">*</span>
           </label>
           <textarea
@@ -51,13 +51,13 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
             onChange={e => { setCvText(e.target.value); setError('') }}
             rows={8}
             placeholder="Paste the full text of your CV here..."
-            className="w-full border border-gray-300 rounded-lg p-3 
+            className="w-full border border-slate-300 rounded-lg p-3 
                        focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           />
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Target Job Role <span className="text-red-400">*</span>
           </label>
           <input
@@ -65,7 +65,7 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
             value={jobRole}
             onChange={e => { setJobRole(e.target.value); setError('') }}
             placeholder="e.g. Data Analyst, Frontend Developer, DevOps Engineer"
-            className="w-full border border-gray-300 rounded-lg p-3 
+            className="w-full border border-slate-300 rounded-lg p-3 
                        focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -82,7 +82,7 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
         <button
           onClick={handleAnalyze}
           disabled={loading || !cvText.trim() || !jobRole.trim()}
-          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed
+          className="w-full bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 disabled:cursor-not-allowed
                      text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
         >
           {loading ? 'Comparing Your Skills...' : 'Analyze Skills Gap'}
@@ -94,8 +94,8 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
 
       {/* Results */}
       {results && !loading && (
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="space-y-6 reveal-up">
+          <h2 className="text-xl font-bold text-slate-900">
             Skills Gap Results for: <span className="text-blue-500">{jobRole}</span>
           </h2>
 
@@ -103,7 +103,7 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             {/* Skills You Have */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-green-500">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-emerald-200">
               <div className="bg-green-50 px-5 py-3">
                 <h3 className="font-semibold text-green-700">
                   Skills You Have ({results.matching_skills.length})
@@ -111,14 +111,11 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
               </div>
               <div className="px-5 py-4">
                 {results.matching_skills.length === 0 ? (
-                  <p className="text-gray-400 text-sm italic">No matching skills found.</p>
+                  <p className="text-slate-400 text-sm italic">No matching skills found.</p>
                 ) : (
-                  <ul className="space-y-2">
+                  <ul className="flex flex-wrap gap-2">
                     {results.matching_skills.map((skill, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                        <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
-                          ✓
-                        </span>
+                      <li key={i} className="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-200">
                         {skill}
                       </li>
                     ))}
@@ -128,7 +125,7 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
             </div>
 
             {/* Skills You Need */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-red-500">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden border border-red-200">
               <div className="bg-red-50 px-5 py-3">
                 <h3 className="font-semibold text-red-700">
                   Skills You Need ({results.missing_skills.length})
@@ -136,14 +133,11 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
               </div>
               <div className="px-5 py-4">
                 {results.missing_skills.length === 0 ? (
-                  <p className="text-gray-400 text-sm italic">No major gaps found — great job!</p>
+                  <p className="text-slate-400 text-sm italic">No major gaps found — great job!</p>
                 ) : (
-                  <ul className="space-y-2">
+                  <ul className="flex flex-wrap gap-2">
                     {results.missing_skills.map((skill, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                        <span className="w-5 h-5 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
-                          ✗
-                        </span>
+                      <li key={i} className="px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 text-red-800 border border-red-200">
                         {skill}
                       </li>
                     ))}
@@ -154,17 +148,17 @@ function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults
           </div>
 
           {/* Recommendations */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-blue-500">
+          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-blue-200">
             <div className="bg-blue-50 px-5 py-3">
               <h3 className="font-semibold text-blue-700">Recommended Next Steps</h3>
             </div>
             <div className="px-5 py-4">
               {results.recommendations.length === 0 ? (
-                <p className="text-gray-400 text-sm italic">No recommendations available.</p>
+                <p className="text-slate-400 text-sm italic">No recommendations available.</p>
               ) : (
                 <ul className="space-y-3">
                   {results.recommendations.map((rec, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                    <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
                       <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center 
                                        justify-center text-xs font-bold flex-shrink-0 mt-0.5">
                         {i + 1}
