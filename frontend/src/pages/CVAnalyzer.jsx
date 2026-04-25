@@ -4,10 +4,8 @@ import ResultCard from '../components/ResultCard'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { analyzeCv } from '../api/client'
 
-function CVAnalyzer() {
-  const [selectedFile, setSelectedFile] = useState(null)
+function CVAnalyzer({ selectedFile, setSelectedFile, results, setResults }) {
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState(null)
   const [error, setError] = useState('')
 
   // Called when user picks a file in the FileUpload component
@@ -49,7 +47,7 @@ function CVAnalyzer() {
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">📄 CV Analyzer</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">CV Analyzer</h1>
         <p className="text-gray-500 text-lg">
           Upload your CV as a PDF and get detailed AI feedback on what's working, what isn't,
           and exactly how to improve it.
@@ -91,25 +89,25 @@ function CVAnalyzer() {
       {/* Results section */}
       {results && !loading && (
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-gray-900 mt-4 mb-2">📋 Analysis Results</h2>
+          <h2 className="text-xl font-bold text-gray-900 mt-4 mb-2">Analysis Results</h2>
 
           <ResultCard
-            title="✅ Strengths"
+            title="Strengths"
             content={results.strengths}
             color="green"
           />
           <ResultCard
-            title="⚠️ Weak Points"
+            title="Weak Points"
             content={results.weak_points}
             color="red"
           />
           <ResultCard
-            title="🔍 Missing Skills"
+            title="Missing Skills"
             content={results.missing_skills}
             color="yellow"
           />
           <ResultCard
-            title="💡 Improved CV Suggestions"
+            title="Improved CV Suggestions"
             content={results.improved_suggestions}
             color="blue"
           />

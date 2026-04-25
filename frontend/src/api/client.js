@@ -5,7 +5,7 @@ import axios from 'axios'
 // VITE_API_URL is set in frontend/.env
 // ─────────────────────────────────────────────
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
+  baseURL: import.meta.env.VITE_API_URL || '',
   timeout: 60000,  // 60 seconds — AI calls can be slow
   headers: {
     'Content-Type': 'application/json',

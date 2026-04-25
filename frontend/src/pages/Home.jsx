@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const features = [
   {
     path: '/cv',
-    icon: '📄',
+    icon: '',
     title: 'CV Analyzer',
     description: 'Upload your CV and get AI-powered feedback on strengths, weaknesses, and specific improvements.',
     color: 'blue',
@@ -12,7 +12,7 @@ const features = [
   },
   {
     path: '/interview',
-    icon: '🎤',
+    icon: '',
     title: 'Mock Interview',
     description: 'Practice with AI-generated interview questions for your target role and get instant feedback.',
     color: 'purple',
@@ -20,7 +20,7 @@ const features = [
   },
   {
     path: '/linkedin',
-    icon: '💼',
+    icon: '',
     title: 'LinkedIn Optimizer',
     description: 'Paste your LinkedIn summary and let AI rewrite it to be more compelling and keyword-rich.',
     color: 'green',
@@ -28,7 +28,7 @@ const features = [
   },
   {
     path: '/skills-gap',
-    icon: '📊',
+    icon: '',
     title: 'Skills Gap Analysis',
     description: 'Find out exactly which skills you have vs. which ones are required for your dream job.',
     color: 'orange',
@@ -36,7 +36,7 @@ const features = [
   },
   {
     path: '/roadmap',
-    icon: '🗺️',
+    icon: '',
     title: 'Career Roadmap',
     description: 'Get a personalised week-by-week learning plan to go from your current skills to your target role.',
     color: 'teal',
@@ -68,7 +68,7 @@ function Home() {
       <div className="text-center mb-14">
         <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 
                         text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-          <span>🚀</span> AI-Powered Career Tools for Graduates
+          AI-Powered Career Tools for Graduates
         </div>
 
         <h1 className="text-5xl font-bold text-gray-900 mb-4 leading-tight">
@@ -122,7 +122,7 @@ function Home() {
 
       {/* Footer note */}
       <div className="mt-14 text-center text-gray-400 text-sm">
-        <p>Built with ❤️ for the hackathon • Powered by Groq AI (Llama 3 70B)</p>
+        <p>Built by AI Titans • Powered by Groq AI </p>
       </div>
     </div>
   )

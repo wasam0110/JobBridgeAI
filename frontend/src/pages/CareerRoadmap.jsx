@@ -145,7 +145,7 @@ function CareerRoadmap() {
                             Week {week.week}
                           </span>
                           <p className="text-gray-900 font-semibold text-sm mt-0.5">
-                            🎯 {week.goal}
+                            {week.goal}
                           </p>
                         </div>
                       </div>
@@ -175,7 +175,7 @@ function CareerRoadmap() {
 
           {/* Encouragement footer */}
           <div className="mt-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white text-center">
-            <p className="text-xl font-bold mb-1">You've got this! 🚀</p>
+            <p className="text-xl font-bold mb-1">You've got this!</p>
             <p className="text-blue-100 text-sm">
               6 weeks of consistent effort is all it takes to break into a new role.
               Stay consistent, track your progress, and keep building.

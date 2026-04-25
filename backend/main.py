@@ -1,8 +1,16 @@
 import os
+import sys
+from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
+
+# Ensure relative imports work
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
 
 from utils import (
     extract_text_from_pdf,
@@ -35,6 +43,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+FRONTEND_DIST = PROJECT_ROOT / "frontend" / "dist"
+FRONTEND_INDEX = FRONTEND_DIST / "index.html"
+
 # ─────────────────────────────────────────────
 # CORS Middleware — allows frontend at localhost:5173 to call the backend
 # ─────────────────────────────────────────────
@@ -51,7 +63,11 @@ app.add_middleware(
 # ─────────────────────────────────────────────
 @app.on_event("startup")
 async def startup_event():
-    init_db()
+    try:
+        init_db()
+    except Exception as e:
+        # Non-critical in serverless mode; app can still serve AI routes.
+        print(f"DB Warning: init_db failed: {e}")
 
 
 # ─────────────────────────────────────────────
@@ -79,10 +95,17 @@ class RoadmapRequest(BaseModel):
 
 
 # ─────────────────────────────────────────────
-# Route 0: Health check
+# Route 0: Health check + SPA entry
 # ─────────────────────────────────────────────
 @app.get("/")
 def root():
+    if FRONTEND_INDEX.exists():
+        return FileResponse(FRONTEND_INDEX)
+    return {"status": "JobBridge AI is running"}
+
+
+@app.get("/api/health")
+def health():
     return {"status": "JobBridge AI is running"}
 
 
@@ -344,3 +367,20 @@ async def career_roadmap(request: RoadmapRequest):
         weeks = [{"week": 1, "goal": "See full roadmap below", "tasks": [ai_response]}]
 
     return {"roadmap": weeks}
+
+
+@app.get("/{full_path:path}", include_in_schema=False)
+async def serve_frontend(full_path: str):
+    # Keep API and docs routes handled by FastAPI route handlers.
+    if full_path.startswith("api/"):
+        raise HTTPException(status_code=404, detail="Not Found")
+
+    if not FRONTEND_DIST.exists():
+        raise HTTPException(status_code=404, detail="Frontend build not found. Run: npm --prefix frontend run build")
+
+    candidate = (FRONTEND_DIST / full_path).resolve()
+    if FRONTEND_DIST.resolve() in candidate.parents and candidate.is_file():
+        return FileResponse(candidate)
+
+    # SPA fallback so client-side routes like /cv or /interview work on refresh.
+    return FileResponse(FRONTEND_INDEX)

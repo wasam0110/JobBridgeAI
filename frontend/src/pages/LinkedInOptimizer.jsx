@@ -2,11 +2,8 @@ import { useState } from 'react'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { optimizeLinkedIn } from '../api/client'
 
-function LinkedInOptimizer() {
-  const [summary, setSummary] = useState('')
-  const [jobRole, setJobRole] = useState('')
+function LinkedInOptimizer({ summary, setSummary, jobRole, setJobRole, results, setResults }) {
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState(null)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
 
@@ -43,7 +40,7 @@ function LinkedInOptimizer() {
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">💼 LinkedIn Optimizer</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">LinkedIn Optimizer</h1>
         <p className="text-gray-500 text-lg">
           Paste your current LinkedIn About section and let AI rewrite it to be more
           compelling, professional, and keyword-rich.
@@ -111,7 +108,7 @@ function LinkedInOptimizer() {
       {/* Results */}
       {results && !loading && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900">✨ Results</h2>
+          <h2 className="text-xl font-bold text-gray-900">Results</h2>
 
           {/* Side by side comparison — stacks on mobile */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -129,13 +126,13 @@ function LinkedInOptimizer() {
             {/* Optimized */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden border-2 border-blue-400">
               <div className="bg-blue-50 px-5 py-3 flex items-center justify-between">
-                <h3 className="font-semibold text-blue-700 text-sm">🚀 AI Optimized Version</h3>
+                <h3 className="font-semibold text-blue-700 text-sm">AI Optimized Version</h3>
                 <button
                   onClick={handleCopy}
                   className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 
                              bg-white border border-blue-200 rounded-md px-2 py-1 transition-colors"
                 >
-                  {copied ? '✓ Copied!' : '📋 Copy'}
+                  {copied ? '✓ Copied!' : 'Copy'}
                 </button>
               </div>
               <div className="px-5 py-4">
@@ -147,7 +144,7 @@ function LinkedInOptimizer() {
           {/* Improvements made */}
           {results.improvements_made && results.improvements_made.length > 0 && (
             <div className="bg-green-50 border border-green-200 rounded-xl p-5">
-              <h3 className="font-semibold text-green-800 mb-3">✅ Improvements Made</h3>
+              <h3 className="font-semibold text-green-800 mb-3">Improvements Made</h3>
               <ul className="space-y-2">
                 {results.improvements_made.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-green-700">

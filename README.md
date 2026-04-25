@@ -5,25 +5,25 @@ Built with FastAPI + React + Groq (Llama 3 70B).
 
 ---
 
-## ✨ Features
+##  Features
 
 | Feature | Description |
 |---|---|
-| 📄 CV Analyzer | Upload PDF → AI feedback on strengths, weaknesses, missing skills |
-| 🎤 Mock Interview | Enter job role → 4 AI questions → answer → get feedback |
-| 💼 LinkedIn Optimizer | Paste summary → AI rewrites it professionally |
-| 📊 Skills Gap | Paste CV + target role → see what you have vs. need |
+|  CV Analyzer | Upload PDF → AI feedback on strengths, weaknesses, missing skills |
+|  Mock Interview | Enter job role → 4 AI questions → answer → get feedback |
+|  LinkedIn Optimizer | Paste summary → AI rewrites it professionally |
+|  Skills Gap | Paste CV + target role → see what you have vs. need |
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Backend:** Python 3.10+, FastAPI, SQLite, PyMuPDF, Groq API
 - **Frontend:** React 18, Vite, Tailwind CSS v3, Axios, React Router v6
 
 ---
 
-## ⚡ Quick Setup
+##  Quick Setup
 
 ### Step 1 — Get a Groq API Key (Free)
 
@@ -68,7 +68,7 @@ uvicorn main:app --reload --port 8000
 
 You should see:
 ```
-✅ Database initialized successfully.
+ Database initialized successfully.
 INFO:     Uvicorn running on http://127.0.0.1:8000
 ```
 
@@ -105,49 +105,225 @@ Go to: **http://localhost:5173**
 
 ---
 
-## 🧪 Quick Test Checklist
+##  Backend API Endpoints
 
-### ✅ Feature 1 — CV Analyzer
+Base URL: `http://localhost:8000`
+
+### 1) Health Check
+- **Method:** `GET`
+- **Path:** `/`
+- **Purpose:** Confirms backend is running
+- **Response:**
+
+```json
+{
+  "status": "JobBridge AI is running"
+}
+```
+
+### 2) CV Analyzer
+- **Method:** `POST`
+- **Path:** `/api/cv/analyze`
+- **Content-Type:** `multipart/form-data`
+- **Body:** `file` (PDF)
+- **Response:**
+
+```json
+{
+  "strengths": "...",
+  "weak_points": "...",
+  "missing_skills": "...",
+  "improved_suggestions": "..."
+}
+```
+
+### 3) Start Interview
+- **Method:** `POST`
+- **Path:** `/api/interview/start`
+- **Content-Type:** `application/json`
+- **Body:**
+
+```json
+{
+  "job_role": "Software Engineer"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "questions": ["...", "...", "...", "..."]
+}
+```
+
+### 4) Interview Feedback
+- **Method:** `POST`
+- **Path:** `/api/interview/feedback`
+- **Content-Type:** `application/json`
+- **Body:**
+
+```json
+{
+  "question": "Tell me about yourself",
+  "answer": "...",
+  "job_role": "Software Engineer"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "feedback": "...",
+  "score": "Good"
+}
+```
+
+### 5) LinkedIn Optimizer
+- **Method:** `POST`
+- **Path:** `/api/linkedin/optimize`
+- **Content-Type:** `application/json`
+- **Body:**
+
+```json
+{
+  "summary": "I am a graduate seeking opportunities",
+  "job_role": "Data Analyst"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "optimized": "...",
+  "improvements_made": ["...", "...", "..."]
+}
+```
+
+### 6) Skills Gap Analysis
+- **Method:** `POST`
+- **Path:** `/api/skills-gap`
+- **Content-Type:** `application/json`
+- **Body:**
+
+```json
+{
+  "cv_text": "...",
+  "job_role": "Data Analyst"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "matching_skills": ["..."],
+  "missing_skills": ["..."],
+  "recommendations": ["..."]
+}
+```
+
+### 7) Career Roadmap
+- **Method:** `POST`
+- **Path:** `/api/roadmap`
+- **Content-Type:** `application/json`
+- **Body:**
+
+```json
+{
+  "current_skills": "Python, SQL",
+  "target_role": "ML Engineer"
+}
+```
+
+- **Response:**
+
+```json
+{
+  "roadmap": [
+    {
+      "week": 1,
+      "goal": "...",
+      "tasks": ["...", "..."]
+    }
+  ]
+}
+```
+
+### 8) Auto-generated FastAPI Docs
+- `GET /docs` → Swagger UI
+- `GET /redoc` → ReDoc
+- `GET /openapi.json` → OpenAPI schema
+
+---
+
+##  Serverless Ready (Vercel)
+
+Backend is now configured for Vercel serverless runtime.
+
+- Serverless entrypoint: `api/index.py`
+- Vercel routing config: `vercel.json`
+- SQLite fallback on Vercel: uses `/tmp/jobbridge.db`
+
+When you deploy later, set these Vercel environment variables:
+
+- `GROQ_API_KEY`
+- `GROQ_MODEL` (optional)
+
+Local dev remains the same:
+
+```bash
+cd backend
+uvicorn main:app --reload --port 8000
+```
+
+---
+
+##  Quick Test Checklist
+
+###  Feature 1 — CV Analyzer
 1. Go to `/cv`
 2. Upload any PDF (your CV, or any text PDF)
 3. Click **Analyze My CV**
 4. Wait 10-15 seconds
-5. ✅ Should see 4 result cards: Strengths, Weak Points, Missing Skills, Suggestions
+5.  Should see 4 result cards: Strengths, Weak Points, Missing Skills, Suggestions
 
-### ✅ Feature 2 — Mock Interview
+###  Feature 2 — Mock Interview
 1. Go to `/interview`
 2. Type `Software Engineer` in the role box
 3. Click **Generate Interview Questions**
-4. ✅ Should see Question 1 of 4
+4.  Should see Question 1 of 4
 5. Type any answer and click **Submit Answer**
-6. ✅ Should see AI feedback with a score (Good/Average/Needs Improvement)
+6.  Should see AI feedback with a score (Good/Average/Needs Improvement)
 7. Click **Next Question** and repeat
-8. ✅ After 4 questions, should see full summary
+8.  After 4 questions, should see full summary
 
-### ✅ Feature 3 — LinkedIn Optimizer
+###  Feature 3 — LinkedIn Optimizer
 1. Go to `/linkedin`
 2. Paste any text in the summary box (even "I am a graduate seeking opportunities")
 3. Click **Optimize My LinkedIn**
-4. ✅ Should see original vs AI-optimized version side by side
-5. ✅ Improvements Made list should appear below
+4.  Should see original vs AI-optimized version side by side
+5.  Improvements Made list should appear below
 
-### ✅ Feature 4 — Skills Gap
+###  Feature 4 — Skills Gap
 1. Go to `/skills-gap`
 2. Paste any CV text into the textarea
 3. Type `Data Analyst` as target role
 4. Click **Analyze Skills Gap**
-5. ✅ Should see green column (skills you have) and red column (skills needed)
-6. ✅ Recommendations section should appear below
+5.  Should see green column (skills you have) and red column (skills needed)
+6.  Recommendations section should appear below
 
-### ✅ Backend Health Check
+###  Backend Health Check
 - Open: http://localhost:8000
 - Should return: `{"status": "JobBridge AI is running"}`
 - Open: http://localhost:8000/docs
-- ✅ Should show interactive API documentation
+-  Should show interactive API documentation
 
 ---
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 **"GROQ_API_KEY not found" error:**
 - Make sure you created `backend/.env` with your key
@@ -169,7 +345,7 @@ Go to: **http://localhost:5173**
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 jobbridge-ai/
@@ -190,4 +366,4 @@ jobbridge-ai/
 
 ---
 
-Built for hackathon 🏆 • Powered by [Groq](https://groq.com) + Llama 3 70B
+Built for hackathon  • Powered by [Groq](https://groq.com) + Llama 3 70B

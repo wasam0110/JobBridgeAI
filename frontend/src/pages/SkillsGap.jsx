@@ -2,11 +2,8 @@ import { useState } from 'react'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { analyzeSkillsGap } from '../api/client'
 
-function SkillsGap() {
-  const [cvText, setCvText] = useState('')
-  const [jobRole, setJobRole] = useState('')
+function SkillsGap({ cvText, setCvText, jobRole, setJobRole, results, setResults }) {
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState(null)
   const [error, setError] = useState('')
 
   async function handleAnalyze() {
@@ -36,7 +33,7 @@ function SkillsGap() {
 
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">📊 Skills Gap Analysis</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Skills Gap Analysis</h1>
         <p className="text-gray-500 text-lg">
           Paste your CV and enter a target role — the AI will map which skills you already
           have versus what you still need to land the job.
@@ -99,7 +96,7 @@ function SkillsGap() {
       {results && !loading && (
         <div className="space-y-6">
           <h2 className="text-xl font-bold text-gray-900">
-            📋 Skills Gap Results for: <span className="text-blue-500">{jobRole}</span>
+            Skills Gap Results for: <span className="text-blue-500">{jobRole}</span>
           </h2>
 
           {/* Two column skills layout */}
@@ -109,7 +106,7 @@ function SkillsGap() {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-green-500">
               <div className="bg-green-50 px-5 py-3">
                 <h3 className="font-semibold text-green-700">
-                  ✅ Skills You Have ({results.matching_skills.length})
+                  Skills You Have ({results.matching_skills.length})
                 </h3>
               </div>
               <div className="px-5 py-4">
@@ -134,7 +131,7 @@ function SkillsGap() {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-red-500">
               <div className="bg-red-50 px-5 py-3">
                 <h3 className="font-semibold text-red-700">
-                  ✗ Skills You Need ({results.missing_skills.length})
+                  Skills You Need ({results.missing_skills.length})
                 </h3>
               </div>
               <div className="px-5 py-4">
@@ -159,7 +156,7 @@ function SkillsGap() {
           {/* Recommendations */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden border-l-4 border-blue-500">
             <div className="bg-blue-50 px-5 py-3">
-              <h3 className="font-semibold text-blue-700">🎯 Recommended Next Steps</h3>
+              <h3 className="font-semibold text-blue-700">Recommended Next Steps</h3>
             </div>
             <div className="px-5 py-4">
               {results.recommendations.length === 0 ? (

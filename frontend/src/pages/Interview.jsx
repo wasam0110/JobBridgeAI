@@ -7,17 +7,22 @@ const VIEW_SETUP = 'setup'
 const VIEW_INTERVIEW = 'interview'
 const VIEW_SUMMARY = 'summary'
 
-function Interview() {
-  const [view, setView] = useState(VIEW_SETUP)
-  const [jobRole, setJobRole] = useState('')
-  const [questions, setQuestions] = useState([])
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentAnswer, setCurrentAnswer] = useState('')
+function Interview({
+  view,
+  setView,
+  jobRole,
+  setJobRole,
+  questions,
+  setQuestions,
+  currentIndex,
+  setCurrentIndex,
+  currentAnswer,
+  setCurrentAnswer,
+  sessionResults,
+  setSessionResults,
+}) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
-  // Stores each result: { question, answer, feedback, score }
-  const [sessionResults, setSessionResults] = useState([])
 
   // ── SETUP VIEW: Generate questions ──────────────────────────
   async function handleStartInterview() {
@@ -97,7 +102,7 @@ function Interview() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">🎤 Mock Interview</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Mock Interview</h1>
           <p className="text-gray-500 text-lg">
             Enter the role you're interviewing for and get 4 realistic interview questions with AI feedback.
           </p>
@@ -145,7 +150,7 @@ function Interview() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">🎤 Mock Interview</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Mock Interview</h1>
           <span className="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
             Question {currentIndex + 1} of {questions.length}
           </span>
@@ -238,14 +243,14 @@ function Interview() {
   if (view === VIEW_SUMMARY) {
     const goodCount = sessionResults.filter(r => r.score === 'Good').length
     const encouragement = goodCount >= 3
-      ? "Great performance! You're well-prepared for this role. 🎉"
+      ? "Great performance! You're well-prepared for this role."
       : goodCount >= 2
-        ? "Solid effort! A bit more practice and you'll nail it. 💪"
-        : "Keep practicing — every attempt makes you stronger. 🚀"
+        ? "Solid effort! A bit more practice and you'll nail it."
+        : "Keep practicing — every attempt makes you stronger."
 
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">📋 Interview Summary</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Interview Summary</h1>
 
         {/* Overall score banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-8 text-center">

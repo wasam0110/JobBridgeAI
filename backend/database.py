@@ -1,9 +1,15 @@
+import os
 import sqlite3
 import json
 from datetime import datetime
 
 # SQLite database file path
-DB_PATH = "jobbridge.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.getenv("DB_PATH", os.path.join(BASE_DIR, "jobbridge.db"))
+
+# Vercel serverless filesystem is read-only except /tmp.
+if os.getenv("VERCEL"):
+    DB_PATH = "/tmp/jobbridge.db"
 
 
 # ─────────────────────────────────────────────
