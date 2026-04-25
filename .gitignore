@@ -1,6 +1,8 @@
 ﻿# env (never commit secrets)
 .env
 .env.*
+backend/.env
+frontend/.env
 !.env.example
 
 # python
